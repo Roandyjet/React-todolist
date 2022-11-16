@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import List from "./components/List";
 
 function App() {
   const [textInput, setTextInput] = useState("");
@@ -11,13 +12,21 @@ function App() {
   }
 
   function addList(e) {
-    setLists((prevList) => {
-      return [...prevList, textInput];
+    setLists((prevLists) => {
+      return [...prevLists, textInput];
     });
 
     setTextInput("");
 
     e.preventDefault();
+  }
+
+  function deleteItem(id) {
+    setLists((prevLists) => {
+      return prevLists.filter((item, index) => {
+        return index !== id;
+      });
+    });
   }
 
   return (
@@ -36,7 +45,9 @@ function App() {
       <div>
         <ul>
           {lists.map((list, index) => {
-            return <li key={index}>{list}</li>;
+            return (
+              <List text={list} key={index} id={index} onChecked={deleteItem} />
+            );
           })}
         </ul>
       </div>
