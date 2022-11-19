@@ -1,29 +1,22 @@
 import { useState } from "react";
 import "./App.css";
+import InputArea from "./components/InputArea";
 import List from "./components/List";
 
 function App() {
-  const [textInput, setTextInput] = useState("");
   const [lists, setLists] = useState([]);
 
-  function handleChange(e) {
-    const newList = e.target.value;
-    setTextInput(newList);
-  }
-
-  function addList(e) {
+  function addList(inputText) {
     setLists((prevLists) => {
-      return [...prevLists, textInput];
+      return [...prevLists, inputText];
     });
 
-    setTextInput("");
-
-    e.preventDefault();
+    // event.preventDefault();
   }
 
-  function deleteItem(id) {
+  function deleteList(id) {
     setLists((prevLists) => {
-      return prevLists.filter((item, index) => {
+      return prevLists.filter((list, index) => {
         return index !== id;
       });
     });
@@ -34,21 +27,12 @@ function App() {
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <form action="">
-        <div className="form">
-          <input type="text" onChange={handleChange} value={textInput} />
-          <button type="submit" onClick={addList}>
-            <span>Add</span>
-          </button>
-        </div>
-      </form>
+      <InputArea onAdd={addList} />
       <div>
         <ul>
-          {lists.map((list, index) => {
-            return (
-              <List text={list} key={index} id={index} onChecked={deleteItem} />
-            );
-          })}
+          {lists.map((list, index) => (
+            <List key={index} id={index} text={list} onChecked={deleteList} />
+          ))}
         </ul>
       </div>
     </div>

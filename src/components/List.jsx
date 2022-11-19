@@ -1,31 +1,30 @@
 import React from "react";
 
+// We can't modify our props but we can have state in this component
 const List = (props) => {
-  //   const [isDone, setIsDone] = useState(false);
+  // __________The commented ones are for linethrough______________
+  // const [isDone, setIsDone] = useState(false);
 
-  //   function handleClick() {
-  //     setIsDone((prevValue) => {
-  //       return !prevValue;
-  //     });
-  //   }
+  // function handleClick() {
+  // setIsDone((prevValue) => {
+  //   return !prevValue;
+  // });
+  // }
 
   return (
-    <li
-      //   style={{ textDecoration: isDone && "line-through" }}
-      //   key={props.index}
+    // We can put onClick in the div on in the li
+    // We call the function right away with props.id if we code like this : <div onClick={props.onChecked(props.id)}>
+    // Instead, we can create another function inside onClick so that it only exe after onClick event
 
-      //   The id will be called right away if the following code is fired
-      //   onClick={props.onChecked(props.id)} instead, use a function:
-
+    <div
       onClick={() => {
         props.onChecked(props.id);
       }}
     >
-      {props.text}
-    </li>
+      {/* <li style={{ textDecoration: isDone && "line-through" }}>{props.text}</li> */}
+      <li>{props.text}</li>
+    </div>
   );
 };
-
-// h2{textDecoration: "line-through"}
 
 export default List;
